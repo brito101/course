@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('posts', PostController::class);
+Route::any('posts-search', [PostController::class, 'search'])->name('posts.search');
 
 Route::get('/', function () {
     return view('welcome');
