@@ -24,8 +24,9 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:3|max:160',
-            'content' => 'required|min:5|max:1000',
+            'title' => "required|min:3|max:160|unique:posts,title,{$this->id},id",
+            'image' => $this->method() == 'POST' ? 'required|' : '' . 'image|max:1024',
+            'content' => 'nullable|min:5|max:1000',
         ];
     }
 }

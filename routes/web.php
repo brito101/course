@@ -14,9 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('posts', PostController::class);
-Route::any('posts-search', [PostController::class, 'search'])->name('posts.search');
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('posts', PostController::class);
+    Route::any('posts-search', [PostController::class, 'search'])->name('posts.search');
+});
+
+require __DIR__ . '/auth.php';
